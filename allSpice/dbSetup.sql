@@ -37,4 +37,18 @@ VALUES (
         "6527182f925769ff6f109ae2 "
     )
 
-DROP TABLE recipes;
+INSERT INTO
+    recipes(
+        title,
+        instructions,
+        img,
+        category,
+        creatorId
+    )
+VALUES (
+        "Bacon",
+        "Put them in the micro wave",
+        "https://unsplash.com/photos/y2X7JYv019M ",
+        "snacks",
+        "6527182f925769ff6f109ae2"
+    )

@@ -13,5 +13,23 @@ namespace allSpice.Services
         {
             _repo = repo;
         }
+
+        internal Recipe CreateRecipe(Recipe recipeData)
+        {
+            Recipe newRecipe = _repo.CreateRecipe(recipeData);
+            return newRecipe;
+        }
+
+
+
+
+
+
+
+
+
+
+
+
     }
 }
