@@ -38,6 +38,51 @@ namespace allSpice.Controllers
             }
         }
 
+        [HttpGet]
+        public ActionResult<List<Recipe>> GetAll()
+        {
+            try
+            {
+                List<Recipe> recipe = _recipesService.GetAll();
+                return recipe;
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
+        }
+
+        [HttpGet("{recipeId}")]
+        public ActionResult<Recipe> GetRecipeById(int recipeId)
+        {
+            try
+            {
+                Recipe recipe = _recipesService.GetRecipeById(recipeId);
+                return recipe;
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
+        }
+
+        [Authorize]
+        [HttpPut("{recipeId}")]
+        public ActionResult<Recipe> EditRecipe([FromBody] Recipe updateData, int recipeId)
+        {
+            try
+            {
+                //NOTE we do this so we can just export the one single piece of data together
+                updateData.Id = recipeId;
+                Recipe recipe = _recipesService.EditRecipe(updateData);
+                return recipe;
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
+        }
+
 
 
 

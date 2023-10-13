@@ -20,6 +20,32 @@ namespace allSpice.Services
             return newRecipe;
         }
 
+        internal List<Recipe> GetAll()
+        {
+            List<Recipe> recipe = _repo.GetAll();
+            return recipe;
+        }
+
+        internal Recipe GetRecipeById(int recipeId)
+        {
+            Recipe foundRecipe = _repo.GetRecipeById(recipeId);
+            if (foundRecipe == null) throw new Exception($"unable to find recipe at {recipeId}");
+            return foundRecipe;
+        }
+
+        internal Recipe EditRecipe(Recipe updateData)
+        {
+            Recipe original = this.GetRecipeById(updateData.Id);
+
+            original.Title = updateData.Title ?? original.Title;
+            original.Instructions = updateData.Instructions ?? original.Instructions;
+            original.Img = updateData.Img ?? original.Img;
+            original.Category = updateData.Category ?? original.Category;
+
+            Recipe recipe = _repo.EditRecipe(original);
+            return recipe;
+        }
+
 
 
 

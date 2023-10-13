@@ -25,7 +25,7 @@ namespace allSpice.Repositories
 
             SELECT
             act.*,
-            res.*
+            rec.*
             FROM recipes rec
             JOIN accounts act ON act.id = rec.creatorId
             WHERE rec.id = LAST_INSERT_ID()
@@ -37,6 +37,57 @@ namespace allSpice.Repositories
                 return recipe;
             }, recipeData).FirstOrDefault();
             return newRecipe;
+        }
+
+        internal List<Recipe> GetAll()
+        {
+            string sql = @"
+            SELECT
+            rec.*,
+            act.* 
+            FROM recipes rec
+            JOIN accounts act on act.id = rec.creatorId
+            ;";
+            List<Recipe> recipes = _db.Query<Recipe, Account, Recipe>(sql, (recipe, account) =>
+            {
+                recipe.Creator = account;
+                return recipe;
+            }).ToList();
+            return recipes;
+        }
+
+        internal Recipe GetRecipeById(int recipeId)
+        {
+            string sql = @"
+            SELECT
+            rec.*,
+            act.*
+            FROM recipes rec
+            JOIN accounts act ON rec.creatorId = act.id
+            WHERE rec.id = @recipeId
+            ;";
+            Recipe foundRecipe = _db.Query<Recipe, Account, Recipe>(sql, (recipe, account) =>
+            {
+                recipe.Creator = account;
+                return recipe;
+            }, new { recipeId }).FirstOrDefault();
+            return foundRecipe;
+        }
+
+        internal Recipe EditRecipe(Recipe updateData)
+        {
+            string sql = @"
+                UPDATE recipes
+                SET
+                title = @title,
+                instructions = @instructions,
+                img = @img,
+                category = @category
+                WHERE id = @id;
+                SELECT * FROM recipes WHERE id = @id;
+            ;";
+            Recipe recipe = _db.Query<Recipe>(sql, updateData).FirstOrDefault();
+            return recipe;
         }
 
 
