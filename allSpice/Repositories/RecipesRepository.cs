@@ -90,6 +90,17 @@ namespace allSpice.Repositories
             return recipe;
         }
 
+        internal void DeleteRecipe(int recipeId)
+        {
+            string sql = @"
+            DELETE FROM recipes WHERE id = @recipeId
+            ;";
+            int rowsAffected = _db.Execute(sql, new { recipeId });
+            //NOTE this is to check if it worked or not
+            if (rowsAffected > 1) throw new Exception("Deleted everything!!");
+            if (rowsAffected < 1) throw new Exception("Nothing happened");
+        }
+
 
 
 

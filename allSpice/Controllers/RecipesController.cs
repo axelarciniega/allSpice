@@ -83,6 +83,21 @@ namespace allSpice.Controllers
             }
         }
 
+        [Authorize]
+        [HttpDelete("{recipeId}")]
+        public ActionResult<string> DeleteRecipe(int recipeId)
+        {
+            try
+            {
+                string message = _recipesService.DeleteRecipe(recipeId);
+                return Ok(message);
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
+        }
+
 
 
 

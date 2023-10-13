@@ -46,6 +46,15 @@ namespace allSpice.Services
             return recipe;
         }
 
+        internal string DeleteRecipe(int recipeId)
+        {
+
+            Recipe recipe = this.GetRecipeById(recipeId);
+            _repo.DeleteRecipe(recipeId);
+            // if (recipe.CreatorId != userId) throw new Exception("Unauthorized");
+            return $"{recipe.Title} was removed";
+        }
+
 
 
 
