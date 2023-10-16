@@ -12,5 +12,12 @@ public class Recipe
     public string Img { get; set; }
     public string Category { get; set; }
     public string CreatorId { get; set; }
+    public string AccountId { get; set; }
     public Account Creator { get; set; }
+}
+
+public class RecipeFavoritesModel : Recipe
+{
+    public int FavoriteId { get; set; }
+    public string AccountId { get; set; }
 }

@@ -20,6 +20,23 @@ namespace allSpice.Services
             return favorite;
         }
 
+        internal List<RecipeFavoritesModel> GetFavoritesByAccount(string accountId)
+        {
+            List<RecipeFavoritesModel> myFavorites = _repo.GetFavoritesByAccount(accountId);
+            return myFavorites;
+        }
+
+
+        internal void RemoveFavorite(int favoriteId, string userId)
+        {
+            Favorite foundFavorite = _repo.GetById(favoriteId);
+            if (foundFavorite == null) throw new Exception("Invalid id");
+            if (foundFavorite.AccountId != userId) throw new Exception("Unauthorized");
+            int rows = _repo.RemoveFavorite(favoriteId);
+            if (rows > 1) throw new Exception("Deleted multiple!");
+            if (rows < 1) throw new Exception("Nothing happened!");
+
+        }
 
 
 
