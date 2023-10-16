@@ -37,6 +37,24 @@ namespace allSpice.Repositories
             return newIngredient;
         }
 
+        internal Ingredient GetIngredientById(int ingredientId)
+        {
+            string sql = @"
+            SELECT
+            ing.*,
+            act.*
+            FROM ingredients ing
+            JOIN accounts act ON ing.creatorId = act.id
+            WHERE ing.id = @ingredientId
+            ;";
+            Ingredient foundIngredient = _db.Query<Ingredient, Account, Ingredient>(sql, (ingredient, account) =>
+            {
+                ingredient.Creator = account;
+                return ingredient;
+            }, new { ingredientId }).FirstOrDefault();
+            return foundIngredient;
+        }
+
         internal List<Ingredient> GetIngredientByRecipeId(int recipeId)
         {
             string sql = @"
@@ -53,6 +71,17 @@ namespace allSpice.Repositories
                 return ingredient;
             }, new { recipeId }).ToList();
             return ingredients;
+        }
+
+        internal void RemoveIngredient(int ingredientId)
+        {
+            string sql = @"
+                DELETE FROM ingredients WHERE id = @ingredientId
+            ;";
+            int rowsAffected = _db.Execute(sql, new { ingredientId });
+
+            if (rowsAffected > 1) throw new Exception("Deleted multiple");
+            if (rowsAffected < 1) throw new Exception("Nothing was deleted");
         }
 
 
