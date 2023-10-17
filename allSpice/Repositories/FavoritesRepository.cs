@@ -40,6 +40,7 @@ namespace allSpice.Repositories
             ;";
             List<RecipeFavoritesModel> myFavorites = _db.Query<Favorite, RecipeFavoritesModel, RecipeFavoritesModel>(sql, (favorite, recipe) =>
             {
+
                 recipe.FavoriteId = favorite.Id;
                 recipe.AccountId = favorite.AccountId;
                 return recipe;
