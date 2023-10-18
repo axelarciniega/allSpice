@@ -1,22 +1,24 @@
 <template>
-    <div class="modal fade" id="allSpice" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false" role="dialog" aria-labelledby="modalTitleId" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-xl" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="modalTitleId">Modal title</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body">
-          <div class="container-fluid">
-            <!-- NOTE the whole section has a v-if meaning it will only render IF there is an active movie -->
-            <section v-if="activeRecipe" class="row">
-                {{ activeRecipe.title }}
-            </section>
-          </div>
-        </div>
+ 
+
+<!-- Modal -->
+<div  class="modal fade" id="RecipeMo" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        SUP
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
       </div>
     </div>
   </div>
+</div>
 </template>
 
 <script>
@@ -25,6 +27,8 @@ import { AppState } from '../AppState.js';
 
 
 export default {
+        props: { id: { type: String, required: true }, showButton: { type: Boolean, default: true } },
+    
 setup() {
   return {
     activeRecipe: computed(() => AppState.activeRecipe)
