@@ -1,6 +1,20 @@
 <template>
   <div class="container">
 
+
+    <section class="background text-white mt-3">
+      <div class="text-center">
+        <h1>All-Spice</h1>
+      </div>
+      <div class="text-center">
+        <h4>Cherish Your Family</h4>
+      </div>
+      <div class="text-center">
+        <h4>And Their Cooking</h4>
+      </div>
+
+    </section>
+
     
     
     
@@ -17,9 +31,9 @@
 
 <script>
 import { computed, onMounted } from 'vue';
-import Pop from '../utils/Pop';
-import { recipesService } from '../services/RecipesService';
-import { AppState } from '../AppState';
+import Pop from '../utils/Pop.js';
+import { recipesService } from '../services/RecipesService.js';
+import { AppState } from '../AppState.js';
 
 export default {
   setup() {
@@ -62,5 +76,11 @@ export default {
       object-position: center;
     }
   }
+}
+
+.background{
+  background-image: url('https://media.swncdn.com/cms/CW/faith/71848-huseyin-pqj21tertgi-unsplash.1200w.tn.jpg');
+  width: 100%;
+  height: 40vh;
 }
 </style>
